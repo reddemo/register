@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>一猫买车帮-经销商注册</title>
+    <link href="css/app.css" rel="stylesheet">
+    <link href="css/bootstrapValidator.css" rel="stylesheet">
+    <!-- Fonts -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">一猫买车帮</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">欢迎注册</div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" role="form" method="POST" id="register" action="http://bang.emao.com/dealer/doRegister">
+                            <input type="hidden" name="_token" value="V5rAeHVmTAArHQgz4cnJCtYScEiOtgk10HRVcy1u">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">用户名</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="username" value="" placeholder="经销商名称">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">品牌</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="brand" value="" placeholder="品牌">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">城市</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="city" placeholder="城市">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">密码</label>
+                                <div class="col-md-6">
+                                    <input type="password" class="form-control" name="password" placeholder="6-12位数字+字母组合">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">确认密码</label>
+                                <div class="col-md-6">
+                                    <input type="password" class="form-control" name="password_confirmation" placeholder="和以上密码相同">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        点击提交
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Scripts -->
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrapValidator.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+            var jQregister = $('#register').bootstrapValidator({
+                message: 'This value is not valid',
+                fields: {
+                    username: {
+                        validators: {
+                            notEmpty: {
+                                message: '用户名不能为空'
+                            }
+                        }
+                    },
+                    brand: {
+                        validators: {
+                            notEmpty: {
+                                message: '品牌不能为空'
+                            }
+                        }
+                    },
+                    password: {
+                        validators: {
+                            notEmpty: {
+                                message: '密码不能为空'
+                            },
+                            stringLength: {
+                                min: 6,
+                                max: 12,
+                                message: '密码长度为6~12个字符'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9]+$/,
+                                message: '只接受数字和字母'
+                            },
+                            callback:{
+                            	callback:function(v){
+                            		if(/(^[0-9]+$)|(^[a-zA-Z]$)/.test(v)){
+                            			return false;
+                            		}else{
+                            			return true
+                            		}
+                            	},
+                            	'message':'密码至少包含两种字符才安全'
+                            }
+                        }
+                    },
+                    password_confirmation: {
+                        validators: {
+                            notEmpty: {
+                                message: '必须确认密码'
+                            },
+                            identical: {
+                                field: 'password',
+                                message: '两次密码输入不一致'
+                            }
+                        }
+                    }
+                }
+            });
+        })
+    </script>
+</body>
+
+</html>
